@@ -129,16 +129,52 @@ public class Task1B {
     public void noSame3digits() {
         int d1, d10, d100 = 0;
         System.out.println("Numbers with different 3 digits");
-        for (int n:array) {
+        for (int n : array) {
             if ((n > 99) && (n < 1000)) {
-                d1 = n%10;
-                d10 = (n/10)%10;
-                d100 = (n/100)%10;
+                d1 = n % 10;
+                d10 = (n / 10) % 10;
+                d100 = (n / 100) % 10;
                 if ((d1 != d10) || (d1 != d100)) {
                     System.out.print(n + "; ");
                 }
             }
         }
 
+    }
+
+    /* Task 1B-10 */
+    public void freqNumSort() {
+        int[] freq = new int[N];
+        int freqTmp = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (array[i] == array[j]) {
+                    freqTmp += 1;
+                }
+            }
+            freq[i] = freqTmp;
+            freqTmp = 0;
+        }
+        int[] freqSorted = sortFreq(freq, array);
+        System.out.println(Arrays.toString(freqSorted));
+    }
+
+    public static int[] sortFreq(int[] freq, int[] array) {
+        int bubleA;
+        int bubleF;
+        int N = array.length;
+        for (int j = 1; j < N - 1; j++) {
+            for (int i = 0; i < N-j; i++) {
+                if (freq[i] < freq[i + 1]) {
+                    bubleA = array[i];
+                    bubleF = freq[i];
+                    array[i] = array[i + 1];
+                    freq[i] = freq[i + 1];
+                    array[i+1] = bubleA;
+                    freq[i + 1] = bubleF;
+                }
+            }
+        }
+        return array;
     }
 }
