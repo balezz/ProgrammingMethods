@@ -3,6 +3,9 @@ package ru.metrolog;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+
 /**
  * Solutions for chapter 1 in Java Programming Methods
  * by BlinovIN and RomanchicVS, 2013
@@ -71,7 +74,6 @@ public class Task1B {
         System.out.println();
         System.out.print("Minimum number is: " + min_num);
     }
-
 
     /* Task 1B-3 */
     public void dividedOn3and9() {
@@ -142,6 +144,110 @@ public class Task1B {
 
     }
 
+    /* Task 1B-7 */
+
+    /**
+     * Method finding GCD for N numbers
+     */
+    public void gcdN() {
+        if (array.length < 1) return;
+        int gcdA = gcd(array[0], array[1]);
+        for (int i = 2; i < array.length; i++) {
+            gcdA = gcd(gcdA, array[i]);
+        }
+        System.out.println("Greatest common divider: " + gcdA);
+    }
+
+    /**
+     * Method finding GCD for 2 numbers
+     */
+    static private int gcd(int a, int b) {
+        if (b == 0) return a;
+        if (a > b) return gcd(b, a - b);
+        else return gcd(a, b - a);
+    }
+
+    /**
+     * Method finding LCM for N numbers
+     */
+    public void lcmN() {
+        if (array.length < 1) return;
+        int lcmA = abs(array[0] * array[1]) / gcd(array[0], array[1]);
+        for (int i = 2; i < array.length; i++) {
+            lcmA = abs(lcmA * array[i]) / gcd(lcmA, array[i]);
+        }
+        System.out.println("Least common multiple: " + lcmA);
+    }
+
+    /* Task 1B-8 */
+    public void findPrime() {
+        System.out.println("Prime numbers are: ");
+        for (int i = 0; i < array.length; i++) {
+            if (isPrime(array[i])) System.out.print(array[i] + " ");
+        }
+    }
+
+    static private boolean isPrime(int n) {
+        if (n < 4) return true;
+        int i = 1;
+        if ((n % 2 == 0) || (n % 3 == 0)) return false;
+        while (6 * i < n / 2) {
+            if (((n % (6 * i - 1)) == 0) || ((n % (6 * i + 1)) == 0)) {
+                return false;
+            }
+            ++i;
+        }
+        return true;
+    }
+
+    /* Task 1B-9 */
+    public void sortingShaker(boolean ascending) {
+        int buff;
+        int left = 0;
+        int right = array.length - 1;
+        if (ascending == true) {
+            do {
+                for (int i = left; i < right; i++) {
+                    if (array[i] > array[i + 1]) {
+                        buff = array[i];
+                        array[i] = array[i + 1];
+                        array[i + 1] = buff;
+                    }
+                }
+                right--;
+                for (int i = right; i > left; i--) {
+                    if (array[i] < array[i - 1]) {
+                        buff = array[i];
+                        array[i] = array[i - 1];
+                        array[i - 1] = buff;
+                    }
+                }
+                left++;
+            } while (left < right);
+        } else {
+            do {
+                for (int i = left; i < right; i++) {
+                    if (array[i] < array[i + 1]) {
+                        buff = array[i];
+                        array[i] = array[i + 1];
+                        array[i + 1] = buff;
+                    }
+                }
+                right--;
+                for (int i = right; i > left; i--) {
+                    if (array[i] > array[i - 1]) {
+                        buff = array[i];
+                        array[i] = array[i - 1];
+                        array[i - 1] = buff;
+                    }
+                }
+                left++;
+            } while (left < right);
+        }
+        System.out.println(Arrays.toString(array));
+    }
+
+
     /* Task 1B-10 */
     public void freqNumSort() {
         int[] freq = new int[N];
@@ -159,7 +265,7 @@ public class Task1B {
         System.out.println(Arrays.toString(freqSorted));
     }
 
-    public static int[] sortFreq(int[] freq, int[] array) {
+    private static int[] sortFreq(int[] freq, int[] array) {
         int bubleA;
         int bubleF;
         int N = array.length;
@@ -177,4 +283,127 @@ public class Task1B {
         }
         return array;
     }
+
+
+    /* Task 1B-11 */
+    public void printHappy() {
+        System.out.println("Happy numbers: ");
+        for (int i = 0; i < array.length; i++) {
+            if (isHappy(array[i])) {
+                System.out.print(array[i] + "; ");
+            }
+        }
+
+    }
+
+    /**
+     * Check number is happy ;-)
+     */
+    static private boolean isHappy(int number) {
+        /* Max digital positions for int */
+        int N_log = 10;
+        int[] digit = new int[N_log];
+        int t = number;
+        int i = 0;
+
+        // Decomposing number into digit[] array
+        while (number > pow(10, i)) {
+            digit[i] = t % 10;
+            t = t / 10;
+            i++;
+        }
+
+        int sum_left = 0, sum_right = 0;
+        int left = 0, right = i - 1;
+        while (left < right) {
+            sum_left += digit[left];
+            sum_right += digit[right];
+            left++;
+            right--;
+        }
+        if (sum_left == sum_right) return true;
+        else {
+            return false;
+        }
+
+    }
+
+    /* Task 1B-12 */
+    public void printFibonacci(int n) {
+        if (n == 1) {
+            System.out.print(1);
+        }
+        if (n == 2) {
+            System.out.print(1 + "; " + 1);
+        }
+        if (n > 2) {
+            System.out.print("Fibonacci series: 1; 1; ");
+            int a = 1, b = 1, c = 0;
+            for (int i = 1; i < n; i++) {
+                c = a + b;
+                System.out.print(c + "; ");
+                b = a;
+                a = c;
+            }
+        } else {
+            System.out.print("Enter correct n, please");
+        }
+
+    }
+
+    /* Task 1B-13 */
+    public void printPaly() {
+        System.out.println("Palyndrome numbers: ");
+        for (int i = 0; i < array.length; i++) {
+            if (isPaly(array[i])) {
+                System.out.print(array[i] + "; ");
+            }
+        }
+    }
+
+    /**
+     * Check number is palyndrome
+     */
+    static private boolean isPaly(int number) {
+        /* Max digital positions for int */
+        int N_log = 10;
+        int[] digit = new int[N_log];
+        int t = number;
+        int i = 0;
+
+        // Decomposing number into digit[] array
+        while (number > pow(10, i)) {
+            digit[i] = t % 10;
+            t = t / 10;
+            i++;
+        }
+
+        int left = 0, right = i - 1;
+        while (left < right) {
+            if (digit[left] != digit[right]) return false;
+            left++;
+            right--;
+        }
+
+        return true;
+
+    }
+
+    /* Task 1B-14 */
+    public void meanNeighbours() {
+        int N = array.length;
+        float[] mean_arr = new float[N];
+        mean_arr[0] = array[0];
+        for (int i = 1; i < N; i++) {
+            mean_arr[i] = (float) (array[i - 1] + array[i]) / 2;
+        }
+        System.out.print("Mean array: " + Arrays.toString(mean_arr));
+    }
+
+    /* Task 1B-15 */
+    public void periodFraction() {
+
+    }
+
+
 }
