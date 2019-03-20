@@ -3,8 +3,7 @@ package ru.metrolog;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.pow;
+import static java.lang.Math.*;
 
 /**
  * Solutions for chapter 1 in Java Programming Methods
@@ -402,7 +401,54 @@ public class Task1B {
 
     /* Task 1B-15 */
     public void periodFraction() {
+        int numerator=0, denominator=0;
+        for (int i = 0; i < N - 1; i++) {
+            if ((array[i] > 0) && (array[i + 1] > 0)) {
+                numerator = array[i];
+                denominator = array[i + 1];
+                break;
+            }
+        }
+        if(denominator==0) {
+            System.out.println("No positive :(");
+            return;
+        }
+        findPeriod(numerator, denominator);
+    }
 
+    /**
+     * Finding period of fraction m/n
+     */
+    static void findPeriod(int numer, int denomin) {
+        int r;          // residue
+        int l;          // length of period
+        int t, i;       // temp variables
+        r = numer;
+        for (i = 0; i < denomin; i++) {
+            r = (r * 10) % denomin;
+        }
+        t = r;
+        l = 0;
+        do {
+            r = (r * 10) % denomin;
+            l++;
+        } while (r != t);
+        t = r = numer;
+        System.out.print( "0.");
+        for (i = 0; i < l; i++) {
+            r = (r * 10) % denomin;
+        }
+        for (i = 0; r != t; i++) {
+            System.out.print(t * 10 / denomin);
+            r = (r * 10) % denomin;
+            t = (t * 10) % denomin;
+        }
+        System.out.print('(');
+        for (i = 0; i < l; i++) {
+            System.out.print(t * 10 / denomin);
+            t = (t * 10) % denomin;
+        }
+        System.out.print(')');
     }
 
 
