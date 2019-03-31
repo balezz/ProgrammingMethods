@@ -3,7 +3,10 @@ package ru.metrolog;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+import static java.lang.System.*;
 
 /**
  * Solutions for chapter 1 in Java Programming Methods
@@ -15,15 +18,17 @@ public class Task1B {
     int N;
     int[] array;
 
-    /* Constructor only for N,
-     * numbers input from console */
+    /**
+     * Constructor only for N, numbers input from console
+     */
     public Task1B(int n) {
         N = n;
         array = new int[N];
     }
 
-    /* Constructor for N and array,
-     * no need to input from console */
+    /**
+     * Constructor for N and array, no need to input from console
+     */
     public Task1B(int[] array) {
         N = array.length;
         this.array = array;
@@ -31,8 +36,8 @@ public class Task1B {
 
     /* Prepare operation */
     public void enterNumbers() {
-        System.out.println("Enter " + N + " integer numbers: ");
-        Scanner scanner = new Scanner(System.in);
+        out.println("Enter " + N + " integer numbers: ");
+        Scanner scanner = new Scanner(in);
         for (int i = 0; i < N; i++) {
             array[i] = scanner.nextInt();
         }
@@ -41,17 +46,17 @@ public class Task1B {
 
     /* Task 1B-1*/
     public void printEvenOdds() {
-        System.out.println("Even: \t ");
+        out.println("Even: \t ");
         for (int i = 0; i < N; i++) {
             if (array[i] % 2 == 0) {
-                System.out.print(array[i] + " ");
+                out.print(array[i] + " ");
             }
         }
-        System.out.println();
-        System.out.println("Odds: \t ");
+        out.println();
+        out.println("Odds: \t ");
         for (int i = 0; i < N; i++) {
             if (array[i] % 2 == 1) {
-                System.out.print(array[i] + " ");
+                out.print(array[i] + " ");
             }
         }
     }
@@ -68,79 +73,78 @@ public class Task1B {
                 min_num = array[i];
             }
         }
-        System.out.println();
-        System.out.print("Maximum number is: " + max_num);
-        System.out.println();
-        System.out.print("Minimum number is: " + min_num);
+        out.println();
+        out.print("Maximum number is: " + max_num);
+        out.println();
+        out.print("Minimum number is: " + min_num);
     }
 
     /* Task 1B-3 */
     public void dividedOn3and9() {
-        System.out.print("Divided on 3: ");
+        out.print("Divided on 3: ");
         for (int n : array) {
             if (n % 3 == 0) {
-                System.out.print(n + "; ");
+                out.print(n + "; ");
             }
         }
-        System.out.println();
-        System.out.print("Divided on 9: ");
+        out.println();
+        out.print("Divided on 9: ");
         for (int n : array) {
             if (n % 9 == 0) {
-                System.out.print(n + "; ");
+                out.print(n + "; ");
             }
         }
-        System.out.println();
+        out.println();
     }
 
     /* Task 1B-4 */
     public void dividedOn5and7() {
-        System.out.print("Divided on 5: ");
+        out.print("Divided on 5: ");
         for (int n : array) {
             if (n % 5 == 0) {
-                System.out.print(n + "; ");
+                out.print(n + "; ");
             }
         }
-        System.out.println();
-        System.out.print("Divided on 7: ");
+        out.println();
+        out.print("Divided on 7: ");
         for (int n : array) {
             if (n % 7 == 0) {
-                System.out.print(n + "; ");
+                out.print(n + "; ");
             }
         }
-        System.out.println();
+        out.println();
     }
 
     /* Task 1B-5 */
     public void sortBubble() {
         int bubble = 0;
         for (int j = 1; j < N - 1; j++) {
-            for (int i = 0; i < N - j; i++) {
-                if (array[i] > array[i + 1]) {
+            for (int i = 0; i < N - j -1; i++) {
+                if (abs(array[i]) > abs(array[i + 1])) {
                     bubble = array[i];
                     array[i] = array[i + 1];
                     array[i + 1] = bubble;
                 }
             }
         }
-        System.out.println();
-        System.out.println("Sorted array: " + Arrays.toString(array));
+        out.println();
+        out.println("Sorted array: " + Arrays.toString(array));
     }
 
     /* Task 1B-6 */
     public void noSame3digits() {
         int d1, d10, d100 = 0;
-        System.out.println("Numbers with different 3 digits");
+        out.println("Numbers with different 3 digits");
         for (int n : array) {
             if ((n > 99) && (n < 1000)) {
                 d1 = n % 10;
                 d10 = (n / 10) % 10;
                 d100 = (n / 100) % 10;
                 if ((d1 != d10) || (d1 != d100)) {
-                    System.out.print(n + "; ");
+                    out.print(n + "; ");
                 }
             }
         }
-
     }
 
     /* Task 1B-7 */
@@ -154,7 +158,7 @@ public class Task1B {
         for (int i = 2; i < array.length; i++) {
             gcdA = gcd(gcdA, array[i]);
         }
-        System.out.println("Greatest common divider: " + gcdA);
+        out.println("Greatest common divider: " + gcdA);
     }
 
     /**
@@ -175,14 +179,14 @@ public class Task1B {
         for (int i = 2; i < array.length; i++) {
             lcmA = abs(lcmA * array[i]) / gcd(lcmA, array[i]);
         }
-        System.out.println("Least common multiple: " + lcmA);
+        out.println("Least common multiple: " + lcmA);
     }
 
     /* Task 1B-8 */
     public void findPrime() {
-        System.out.println("Prime numbers are: ");
+        out.println("Prime numbers are: ");
         for (int i = 0; i < array.length; i++) {
-            if (isPrime(array[i])) System.out.print(array[i] + " ");
+            if (isPrime(array[i])) out.print(array[i] + " ");
         }
     }
 
@@ -243,53 +247,15 @@ public class Task1B {
                 left++;
             } while (left < right);
         }
-        System.out.println(Arrays.toString(array));
+        out.println(Arrays.toString(array));
     }
-
-
-    /* Task 1B-10 */
-    public void freqNumSort() {
-        int[] freq = new int[N];
-        int freqTmp = 0;
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (array[i] == array[j]) {
-                    freqTmp += 1;
-                }
-            }
-            freq[i] = freqTmp;
-            freqTmp = 0;
-        }
-        int[] freqSorted = sortFreq(freq, array);
-        System.out.println(Arrays.toString(freqSorted));
-    }
-
-    private static int[] sortFreq(int[] freq, int[] array) {
-        int bubleA;
-        int bubleF;
-        int N = array.length;
-        for (int j = 1; j < N - 1; j++) {
-            for (int i = 0; i < N-j; i++) {
-                if (freq[i] < freq[i + 1]) {
-                    bubleA = array[i];
-                    bubleF = freq[i];
-                    array[i] = array[i + 1];
-                    freq[i] = freq[i + 1];
-                    array[i+1] = bubleA;
-                    freq[i + 1] = bubleF;
-                }
-            }
-        }
-        return array;
-    }
-
 
     /* Task 1B-11 */
     public void printHappy() {
-        System.out.println("Happy numbers: ");
+        out.println("Happy numbers: ");
         for (int i = 0; i < array.length; i++) {
             if (isHappy(array[i])) {
-                System.out.print(array[i] + "; ");
+                out.print(array[i] + "; ");
             }
         }
 
@@ -330,32 +296,32 @@ public class Task1B {
     /* Task 1B-12 */
     public void printFibonacci(int n) {
         if (n == 1) {
-            System.out.print(1);
+            out.print(1);
         }
         if (n == 2) {
-            System.out.print(1 + "; " + 1);
+            out.print(1 + "; " + 1);
         }
         if (n > 2) {
-            System.out.print("Fibonacci series: 1; 1; ");
+            out.print("Fibonacci series: 1; 1; ");
             int a = 1, b = 1, c = 0;
             for (int i = 1; i < n; i++) {
                 c = a + b;
-                System.out.print(c + "; ");
+                out.print(c + "; ");
                 b = a;
                 a = c;
             }
         } else {
-            System.out.print("Enter correct n, please");
+            out.print("Enter correct n, please");
         }
 
     }
 
     /* Task 1B-13 */
     public void printPaly() {
-        System.out.println("Palyndrome numbers: ");
+        out.println("Palyndrome numbers: ");
         for (int i = 0; i < array.length; i++) {
             if (isPaly(array[i])) {
-                System.out.print(array[i] + "; ");
+                out.print(array[i] + "; ");
             }
         }
     }
@@ -396,60 +362,14 @@ public class Task1B {
         for (int i = 1; i < N; i++) {
             mean_arr[i] = (float) (array[i - 1] + array[i]) / 2;
         }
-        System.out.print("Mean array: " + Arrays.toString(mean_arr));
+        out.print("Mean array: " + Arrays.toString(mean_arr));
     }
 
     /* Task 1B-15 */
     public void periodFraction() {
-        int numerator=0, denominator=0;
-        for (int i = 0; i < N - 1; i++) {
-            if ((array[i] > 0) && (array[i + 1] > 0)) {
-                numerator = array[i];
-                denominator = array[i + 1];
-                break;
-            }
-        }
-        if(denominator==0) {
-            System.out.println("No positive :(");
-            return;
-        }
-        findPeriod(numerator, denominator);
-    }
 
-    /**
-     * Finding period of fraction m/n
-     */
-    static void findPeriod(int numer, int denomin) {
-        int r;          // residue
-        int l;          // length of period
-        int t, i;       // temp variables
-        r = numer;
-        for (i = 0; i < denomin; i++) {
-            r = (r * 10) % denomin;
-        }
-        t = r;
-        l = 0;
-        do {
-            r = (r * 10) % denomin;
-            l++;
-        } while (r != t);
-        t = r = numer;
-        System.out.print( "0.");
-        for (i = 0; i < l; i++) {
-            r = (r * 10) % denomin;
-        }
-        for (i = 0; r != t; i++) {
-            System.out.print(t * 10 / denomin);
-            r = (r * 10) % denomin;
-            t = (t * 10) % denomin;
-        }
-        System.out.print('(');
-        for (i = 0; i < l; i++) {
-            System.out.print(t * 10 / denomin);
-            t = (t * 10) % denomin;
-        }
-        System.out.print(')');
     }
 
 
 }
+
