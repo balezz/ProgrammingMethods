@@ -1,4 +1,4 @@
-package ru.metrolog;
+package ru.metrolog.chapter2;
 
 import java.util.Scanner;
 import static java.lang.Math.*;

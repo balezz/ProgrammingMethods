@@ -1,4 +1,4 @@
-package ru.metrolog;
+package ru.metrolog.chapter2;
 
 public class Task2A {
 

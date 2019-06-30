@@ -1,18 +1,15 @@
 package ru.metrolog;
 
-import sun.font.TrueTypeFont;
+import ru.metrolog.chapter1.Task1A;
+import ru.metrolog.chapter3.Task3B;
 
-import java.util.Arrays;
-
+/** Run tasks from the book "Java Programming Methods"
+ * by Blinov I.N. and Romanchick V.S. */
 public class Main {
 
     public static void main(String[] args) {
-        int[] testArray1 = {7, 11, 13, 17, 19, 23, 29, 3122, 6, 232, 8, 4, 12, 19, 22, 91, 1203};
-        int[] testArray2 = {555, 212, 34, 4444, 05};
-        int[] testArray3 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        new Task1A().run();
 
-//        Task1A task1A = new Task1A();
-//        task1A.greetingUser();
 //        task1A.reverseArgs(args);
 //        task1A.randomNumbers();
 //        task1A.passwordCompare();
@@ -50,9 +47,9 @@ public class Main {
 //        Task3A task3A = new Task3A();
 //        task3A.printStudentList();
 
-        Task3B task3B = new Task3B();
+//        Task3B task3B = new Task3B();
 //        task3B.printDistance();
-        task3B.printIsCrossing();
+//        task3B.printIsCrossing();
 
 
 
